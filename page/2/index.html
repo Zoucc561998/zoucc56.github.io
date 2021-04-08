@@ -165,7 +165,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A311.%E6%96%87%E4%BB%B6%E5%92%8C%E5%BC%82%E5%B8%B8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A303.%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/TOUXIANG.jpg">
@@ -179,7 +179,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A311.%E6%96%87%E4%BB%B6%E5%92%8C%E5%BC%82%E5%B8%B8/" class="post-title-link" itemprop="url">这是一个测试文档11</a>
+            <a href="/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A303.%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">这是一个测试文档03</a>
         </h2>
 
         <div class="post-meta">
@@ -190,7 +190,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-04-08 17:13:38 / Modified: 17:18:53" itemprop="dateCreated datePublished" datetime="2021-04-08T17:13:38+08:00">2021-04-08</time>
+              <time title="Created: 2021-04-08 17:28:15 / Modified: 17:28:21" itemprop="dateCreated datePublished" datetime="2021-04-08T17:28:15+08:00">2021-04-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -214,148 +214,14 @@
 
       
           <p>&lt;该文档建立于2021年4月8日，用于对zcc—blog网站的初步调试做测试。下面是一些基本调试文档（来源于：**作者**：骆昊）&gt;</p>
-<h2 id="文件和异常"><a href="#文件和异常" class="headerlink" title="文件和异常"></a>文件和异常</h2><p>实际开发中常常会遇到对数据进行<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96">持久化</a>操作的场景，而实现数据持久化最直接简单的方式就是将数据保存到文件中。说到“文件”这个词，可能需要先科普一下关于<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F">文件系统</a>的知识，但是这里我们并不浪费笔墨介绍这个概念，请大家自行通过维基百科进行了解。</p>
-<p>在Python中实现文件的读写操作其实非常简单，通过Python内置的<code>open</code>函数，我们可以指定文件名、操作模式、编码信息等来获得操作文件的对象，接下来就可以对文件进行读写操作了。这里所说的操作模式是指要打开什么样的文件（字符文件还是二进制文件）以及做什么样的操作（读、写还是追加），具体的如下表所示。</p>
-<table>
-<thead>
-<tr>
-<th>操作模式</th>
-<th>具体含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>&#39;r&#39;</code></td>
-<td>读取 （默认）</td>
-</tr>
-<tr>
-<td><code>&#39;w&#39;</code></td>
-<td>写入（会先截断之前的内容）</td>
-</tr>
-<tr>
-<td><code>&#39;x&#39;</code></td>
-<td>写入，如果文件已经存在会产生异常</td>
-</tr>
-<tr>
-<td><code>&#39;a&#39;</code></td>
-<td>追加，将内容写入到已有文件的末尾</td>
-</tr>
-<tr>
-<td><code>&#39;b&#39;</code></td>
-<td>二进制模式</td>
-</tr>
-<tr>
-<td><code>&#39;t&#39;</code></td>
-<td>文本模式（默认）</td>
-</tr>
-<tr>
-<td><code>&#39;+&#39;</code></td>
-<td>更新（既可以读又可以写）</td>
-</tr>
-</tbody></table>
-<p>下面这张图来自于<a target="_blank" rel="noopener" href="http://www.runoob.com/">菜鸟教程</a>网站，它展示了如果根据应用程序的需要来设置操作模式。</p>
-<p><img src="./res/file-open-mode.png"></p>
-<h3 id="读写文本文件"><a href="#读写文本文件" class="headerlink" title="读写文本文件"></a>读写文本文件</h3><p>读取文本文件时，需要在使用<code>open</code>函数时指定好带路径的文件名（可以使用相对路径或绝对路径）并将文件模式设置为<code>&#39;r&#39;</code>（如果不指定，默认值也是<code>&#39;r&#39;</code>），然后通过<code>encoding</code>参数指定编码（如果不指定，默认值是None，那么在读取文件时使用的是操作系统默认的编码），如果不能保证保存文件时使用的编码方式与encoding参数指定的编码方式是一致的，那么就可能因无法解码字符而导致读取失败。下面的例子演示了如何读取一个纯文本文件。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    f = <span class="built_in">open</span>(<span class="string">&#x27;致橡树.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(f.read())</span><br><span class="line">    f.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p>请注意上面的代码，如果<code>open</code>函数指定的文件并不存在或者无法打开，那么将引发异常状况导致程序崩溃。为了让代码有一定的健壮性和容错性，我们可以使用Python的异常机制对可能在运行时发生状况的代码进行适当的处理，如下所示。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    f = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        f = <span class="built_in">open</span>(<span class="string">&#x27;致橡树.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(f.read())</span><br><span class="line">    <span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;无法打开指定的文件!&#x27;</span>)</span><br><span class="line">    <span class="keyword">except</span> LookupError:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;指定了未知的编码!&#x27;</span>)</span><br><span class="line">    <span class="keyword">except</span> UnicodeDecodeError:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;读取文件时解码错误!&#x27;</span>)</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        <span class="keyword">if</span> f:</span><br><span class="line">            f.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p>在Python中，我们可以将那些在运行时可能会出现状况的代码放在<code>try</code>代码块中，在<code>try</code>代码块的后面可以跟上一个或多个<code>except</code>来捕获可能出现的异常状况。例如在上面读取文件的过程中，文件找不到会引发<code>FileNotFoundError</code>，指定了未知的编码会引发<code>LookupError</code>，而如果读取文件时无法按指定方式解码会引发<code>UnicodeDecodeError</code>，我们在<code>try</code>后面跟上了三个<code>except</code>分别处理这三种不同的异常状况。最后我们使用<code>finally</code>代码块来关闭打开的文件，释放掉程序中获取的外部资源，由于<code>finally</code>块的代码不论程序正常还是异常都会执行到（甚至是调用了<code>sys</code>模块的<code>exit</code>函数退出Python环境，<code>finally</code>块都会被执行，因为<code>exit</code>函数实质上是引发了<code>SystemExit</code>异常），因此我们通常把<code>finally</code>块称为“总是执行代码块”，它最适合用来做释放外部资源的操作。如果不愿意在<code>finally</code>代码块中关闭文件对象释放资源，也可以使用上下文语法，通过<code>with</code>关键字指定文件对象的上下文环境并在离开上下文环境时自动释放文件资源，代码如下所示。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;致橡树.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="built_in">print</span>(f.read())</span><br><span class="line">    <span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;无法打开指定的文件!&#x27;</span>)</span><br><span class="line">    <span class="keyword">except</span> LookupError:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;指定了未知的编码!&#x27;</span>)</span><br><span class="line">    <span class="keyword">except</span> UnicodeDecodeError:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;读取文件时解码错误!&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p>除了使用文件对象的<code>read</code>方法读取文件之外，还可以使用<code>for-in</code>循环逐行读取或者用<code>readlines</code>方法将文件按行读取到一个列表容器中，代码如下所示。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    <span class="comment"># 一次性读取整个文件内容</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;致橡树.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="built_in">print</span>(f.read())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过for-in循环逐行读取</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;致橡树.txt&#x27;</span>, mode=<span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">            <span class="built_in">print</span>(line, end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">            time.sleep(<span class="number">0.5</span>)</span><br><span class="line">    <span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 读取文件按行读取到列表中</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;致橡树.txt&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        lines = f.readlines()</span><br><span class="line">    <span class="built_in">print</span>(lines)</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p>要将文本信息写入文件文件也非常简单，在使用<code>open</code>函数时指定好文件名并将文件模式设置为<code>&#39;w&#39;</code>即可。注意如果需要对文件内容进行追加式写入，应该将模式设置为<code>&#39;a&#39;</code>。如果要写入的文件不存在会自动创建文件而不是引发异常。下面的例子演示了如何将1-9999之间的素数分别写入三个文件中（1-99之间的素数保存在a.txt中，100-999之间的素数保存在b.txt中，1000-9999之间的素数保存在c.txt中）。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> sqrt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_prime</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;判断素数的函数&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">assert</span> n &gt; <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> factor <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">int</span>(sqrt(n)) + <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> n % factor == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span> <span class="keyword">if</span> n != <span class="number">1</span> <span class="keyword">else</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    filenames = (<span class="string">&#x27;a.txt&#x27;</span>, <span class="string">&#x27;b.txt&#x27;</span>, <span class="string">&#x27;c.txt&#x27;</span>)</span><br><span class="line">    fs_list = []</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">for</span> filename <span class="keyword">in</span> filenames:</span><br><span class="line">            fs_list.append(<span class="built_in">open</span>(filename, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">        <span class="keyword">for</span> number <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10000</span>):</span><br><span class="line">            <span class="keyword">if</span> is_prime(number):</span><br><span class="line">                <span class="keyword">if</span> number &lt; <span class="number">100</span>:</span><br><span class="line">                    fs_list[<span class="number">0</span>].write(<span class="built_in">str</span>(number) + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">                <span class="keyword">elif</span> number &lt; <span class="number">1000</span>:</span><br><span class="line">                    fs_list[<span class="number">1</span>].write(<span class="built_in">str</span>(number) + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    fs_list[<span class="number">2</span>].write(<span class="built_in">str</span>(number) + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="keyword">except</span> IOError <span class="keyword">as</span> ex:</span><br><span class="line">        <span class="built_in">print</span>(ex)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;写文件时发生错误!&#x27;</span>)</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        <span class="keyword">for</span> fs <span class="keyword">in</span> fs_list:</span><br><span class="line">            fs.close()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;操作完成!&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<h3 id="读写二进制文件"><a href="#读写二进制文件" class="headerlink" title="读写二进制文件"></a>读写二进制文件</h3><p>知道了如何读写文本文件要读写二进制文件也就很简单了，下面的代码实现了复制图片文件的功能。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;guido.jpg&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> fs1:</span><br><span class="line">            data = fs1.read()</span><br><span class="line">            <span class="built_in">print</span>(<span class="built_in">type</span>(data))  <span class="comment"># &lt;class &#x27;bytes&#x27;&gt;</span></span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;吉多.jpg&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> fs2:</span><br><span class="line">            fs2.write(data)</span><br><span class="line">    <span class="keyword">except</span> FileNotFoundError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;指定的文件无法打开.&#x27;</span>)</span><br><span class="line">    <span class="keyword">except</span> IOError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;读写文件时出现错误.&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;程序执行结束.&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<h3 id="读写JSON文件"><a href="#读写JSON文件" class="headerlink" title="读写JSON文件"></a>读写JSON文件</h3><p>通过上面的讲解，我们已经知道如何将文本数据和二进制数据保存到文件中，那么这里还有一个问题，如果希望把一个列表或者一个字典中的数据保存到文件中又该怎么做呢？答案是将数据以JSON格式进行保存。JSON是“JavaScript Object Notation”的缩写，它本来是JavaScript语言中创建对象的一种字面量语法，现在已经被广泛的应用于跨平台跨语言的数据交换，原因很简单，因为JSON也是纯文本，任何系统任何编程语言处理纯文本都是没有问题的。目前JSON基本上已经取代了XML作为异构系统间交换数据的事实标准。关于JSON的知识，更多的可以参考<a target="_blank" rel="noopener" href="http://json.org/">JSON的官方网站</a>，从这个网站也可以了解到每种语言处理JSON数据格式可以使用的工具或三方库，下面是一个JSON的简单例子。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;骆昊&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;age&quot;</span>: <span class="number">38</span>,</span><br><span class="line">    <span class="attr">&quot;qq&quot;</span>: <span class="number">957658</span>,</span><br><span class="line">    <span class="attr">&quot;friends&quot;</span>: [<span class="string">&quot;王大锤&quot;</span>, <span class="string">&quot;白元芳&quot;</span>],</span><br><span class="line">    <span class="attr">&quot;cars&quot;</span>: [</span><br><span class="line">        &#123;<span class="attr">&quot;brand&quot;</span>: <span class="string">&quot;BYD&quot;</span>, <span class="attr">&quot;max_speed&quot;</span>: <span class="number">180</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">&quot;brand&quot;</span>: <span class="string">&quot;Audi&quot;</span>, <span class="attr">&quot;max_speed&quot;</span>: <span class="number">280</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">&quot;brand&quot;</span>: <span class="string">&quot;Benz&quot;</span>, <span class="attr">&quot;max_speed&quot;</span>: <span class="number">320</span>&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可能大家已经注意到了，上面的JSON跟Python中的字典其实是一样一样的，事实上JSON的数据类型和Python的数据类型是很容易找到对应关系的，如下面两张表所示。</p>
-<table>
-<thead>
-<tr>
-<th>JSON</th>
-<th>Python</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>object</td>
-<td>dict</td>
-</tr>
-<tr>
-<td>array</td>
-<td>list</td>
-</tr>
-<tr>
-<td>string</td>
-<td>str</td>
-</tr>
-<tr>
-<td>number (int / real)</td>
-<td>int / float</td>
-</tr>
-<tr>
-<td>true / false</td>
-<td>True / False</td>
-</tr>
-<tr>
-<td>null</td>
-<td>None</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>Python</th>
-<th>JSON</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>dict</td>
-<td>object</td>
-</tr>
-<tr>
-<td>list, tuple</td>
-<td>array</td>
-</tr>
-<tr>
-<td>str</td>
-<td>string</td>
-</tr>
-<tr>
-<td>int, float, int- &amp; float-derived Enums</td>
-<td>number</td>
-</tr>
-<tr>
-<td>True / False</td>
-<td>true / false</td>
-</tr>
-<tr>
-<td>None</td>
-<td>null</td>
-</tr>
-</tbody></table>
-<p>我们使用Python中的json模块就可以将字典或列表以JSON格式保存到文件中，代码如下所示。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    mydict = &#123;</span><br><span class="line">        <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;骆昊&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;age&#x27;</span>: <span class="number">38</span>,</span><br><span class="line">        <span class="string">&#x27;qq&#x27;</span>: <span class="number">957658</span>,</span><br><span class="line">        <span class="string">&#x27;friends&#x27;</span>: [<span class="string">&#x27;王大锤&#x27;</span>, <span class="string">&#x27;白元芳&#x27;</span>],</span><br><span class="line">        <span class="string">&#x27;cars&#x27;</span>: [</span><br><span class="line">            &#123;<span class="string">&#x27;brand&#x27;</span>: <span class="string">&#x27;BYD&#x27;</span>, <span class="string">&#x27;max_speed&#x27;</span>: <span class="number">180</span>&#125;,</span><br><span class="line">            &#123;<span class="string">&#x27;brand&#x27;</span>: <span class="string">&#x27;Audi&#x27;</span>, <span class="string">&#x27;max_speed&#x27;</span>: <span class="number">280</span>&#125;,</span><br><span class="line">            &#123;<span class="string">&#x27;brand&#x27;</span>: <span class="string">&#x27;Benz&#x27;</span>, <span class="string">&#x27;max_speed&#x27;</span>: <span class="number">320</span>&#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;data.json&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> fs:</span><br><span class="line">            json.dump(mydict, fs)</span><br><span class="line">    <span class="keyword">except</span> IOError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(e)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;保存数据完成!&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p>json模块主要有四个比较重要的函数，分别是：</p>
-<ul>
-<li><code>dump</code> - 将Python对象按照JSON格式序列化到文件中</li>
-<li><code>dumps</code> - 将Python对象处理成JSON格式的字符串</li>
-<li><code>load</code> - 将文件中的JSON数据反序列化成对象</li>
-<li><code>loads</code> - 将字符串的内容反序列化成Python对象</li>
-</ul>
-<p>这里出现了两个概念，一个叫序列化，一个叫反序列化。自由的百科全书<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/">维基百科</a>上对这两个概念是这样解释的：“序列化（serialization）在计算机科学的数据处理中，是指将数据结构或对象状态转换为可以存储或传输的形式，这样在需要的时候能够恢复到原先的状态，而且通过序列化的数据重新获取字节时，可以利用这些字节来产生原始对象的副本（拷贝）。与这个过程相反的动作，即从一系列字节中提取数据结构的操作，就是反序列化（deserialization）”。</p>
-<p>目前绝大多数网络数据服务（或称之为网络API）都是基于<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE">HTTP协议</a>提供JSON格式的数据，关于HTTP协议的相关知识，可以看看阮一峰老师的<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2016/08/http.html">《HTTP协议入门》</a>，如果想了解国内的网络数据服务，可以看看<a target="_blank" rel="noopener" href="https://www.juhe.cn/">聚合数据</a>和<a target="_blank" rel="noopener" href="http://www.avatardata.cn/">阿凡达数据</a>等网站，国外的可以看看<a target="_blank" rel="noopener" href="http://apis.io/">{API}Search</a>网站。下面的例子演示了如何使用<a target="_blank" rel="noopener" href="http://docs.python-requests.org/zh_CN/latest/">requests</a>模块（封装得足够好的第三方网络访问模块）访问网络API获取国内新闻，如何通过json模块解析JSON数据并显示新闻标题，这个例子使用了<a target="_blank" rel="noopener" href="https://www.tianapi.com/">天行数据</a>提供的国内新闻数据接口，其中的APIKey需要自己到该网站申请。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    resp = requests.get(<span class="string">&#x27;http://api.tianapi.com/guonei/?key=APIKey&amp;num=10&#x27;</span>)</span><br><span class="line">    data_model = json.loads(resp.text)</span><br><span class="line">    <span class="keyword">for</span> news <span class="keyword">in</span> data_model[<span class="string">&#x27;newslist&#x27;</span>]:</span><br><span class="line">        <span class="built_in">print</span>(news[<span class="string">&#x27;title&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p>在Python中要实现序列化和反序列化除了使用json模块之外，还可以使用pickle和shelve模块，但是这两个模块是使用特有的序列化协议来序列化数据，因此序列化后的数据只能被Python识别。关于这两个模块的相关知识可以自己看看网络上的资料。另外，如果要了解更多的关于Python异常机制的知识，可以看看segmentfault上面的文章<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000007736783">《总结：Python中的异常处理》</a>，这篇文章不仅介绍了Python中异常机制的使用，还总结了一系列的最佳实践，很值得一读。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A303.%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -374,7 +240,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A312.%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A302.%E8%AF%AD%E8%A8%80%E5%85%83%E7%B4%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/TOUXIANG.jpg">
@@ -388,7 +254,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A312.%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-title-link" itemprop="url">这是一个测试文档12</a>
+            <a href="/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A302.%E8%AF%AD%E8%A8%80%E5%85%83%E7%B4%A0/" class="post-title-link" itemprop="url">这是一个测试文档02</a>
         </h2>
 
         <div class="post-meta">
@@ -399,7 +265,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-04-08 17:13:38 / Modified: 17:19:01" itemprop="dateCreated datePublished" datetime="2021-04-08T17:13:38+08:00">2021-04-08</time>
+              <time title="Created: 2021-04-08 17:28:03 / Modified: 17:28:11" itemprop="dateCreated datePublished" datetime="2021-04-08T17:28:03+08:00">2021-04-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -423,298 +289,14 @@
 
       
           <p>&lt;该文档建立于2021年4月8日，用于对zcc—blog网站的初步调试做测试。下面是一些基本调试文档（来源于：**作者**：骆昊）&gt;</p>
-<h2 id="使用正则表达式"><a href="#使用正则表达式" class="headerlink" title="使用正则表达式"></a>使用正则表达式</h2><h3 id="正则表达式相关知识"><a href="#正则表达式相关知识" class="headerlink" title="正则表达式相关知识"></a>正则表达式相关知识</h3><p>在编写处理字符串的程序或网页时，经常会有查找符合某些复杂规则的字符串的需要，正则表达式就是用于描述这些规则的工具，换句话说正则表达式是一种工具，它定义了字符串的匹配模式（如何检查一个字符串是否有跟某种模式匹配的部分或者从一个字符串中将与模式匹配的部分提取出来或者替换掉）。如果你在Windows操作系统中使用过文件查找并且在指定文件名时使用过通配符（*和?），那么正则表达式也是与之类似的用来进行文本匹配的工具，只不过比起通配符正则表达式更强大，它能更精确地描述你的需求（当然你付出的代价是书写一个正则表达式比打出一个通配符要复杂得多，要知道任何给你带来好处的东西都是有代价的，就如同学习一门编程语言一样），比如你可以编写一个正则表达式，用来查找所有以0开头，后面跟着2-3个数字，然后是一个连字号“-”，最后是7或8位数字的字符串（像028-12345678或0813-7654321），这不就是国内的座机号码吗。最初计算机是为了做数学运算而诞生的，处理的信息基本上都是数值，而今天我们在日常工作中处理的信息基本上都是文本数据，我们希望计算机能够识别和处理符合某些模式的文本，正则表达式就显得非常重要了。今天几乎所有的编程语言都提供了对正则表达式操作的支持，Python通过标准库中的re模块来支持正则表达式操作。</p>
-<p>我们可以考虑下面一个问题：我们从某个地方（可能是一个文本文件，也可能是网络上的一则新闻）获得了一个字符串，希望在字符串中找出手机号和座机号。当然我们可以设定手机号是11位的数字（注意并不是随机的11位数字，因为你没有见过“25012345678”这样的手机号吧）而座机号跟上一段中描述的模式相同，如果不使用正则表达式要完成这个任务就会很麻烦。</p>
-<p>关于正则表达式的相关知识，大家可以阅读一篇非常有名的博客叫<a target="_blank" rel="noopener" href="https://deerchao.net/tutorials/regex/regex.htm">《正则表达式30分钟入门教程》</a>，读完这篇文章后你就可以看懂下面的表格，这是我们对正则表达式中的一些基本符号进行的扼要总结。</p>
-<table>
-<thead>
-<tr>
-<th>符号</th>
-<th>解释</th>
-<th>示例</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>.</td>
-<td>匹配任意字符</td>
-<td>b.t</td>
-<td>可以匹配bat / but / b#t / b1t等</td>
-</tr>
-<tr>
-<td>\w</td>
-<td>匹配字母/数字/下划线</td>
-<td>b\wt</td>
-<td>可以匹配bat / b1t / b_t等<br>但不能匹配b#t</td>
-</tr>
-<tr>
-<td>\s</td>
-<td>匹配空白字符（包括\r、\n、\t等）</td>
-<td>love\syou</td>
-<td>可以匹配love you</td>
-</tr>
-<tr>
-<td>\d</td>
-<td>匹配数字</td>
-<td>\d\d</td>
-<td>可以匹配01 / 23 / 99等</td>
-</tr>
-<tr>
-<td>\b</td>
-<td>匹配单词的边界</td>
-<td>\bThe\b</td>
-<td></td>
-</tr>
-<tr>
-<td>^</td>
-<td>匹配字符串的开始</td>
-<td>^The</td>
-<td>可以匹配The开头的字符串</td>
-</tr>
-<tr>
-<td>$</td>
-<td>匹配字符串的结束</td>
-<td>.exe$</td>
-<td>可以匹配.exe结尾的字符串</td>
-</tr>
-<tr>
-<td>\W</td>
-<td>匹配非字母/数字/下划线</td>
-<td>b\Wt</td>
-<td>可以匹配b#t / b@t等<br>但不能匹配but / b1t / b_t等</td>
-</tr>
-<tr>
-<td>\S</td>
-<td>匹配非空白字符</td>
-<td>love\Syou</td>
-<td>可以匹配love#you等<br>但不能匹配love you</td>
-</tr>
-<tr>
-<td>\D</td>
-<td>匹配非数字</td>
-<td>\d\D</td>
-<td>可以匹配9a / 3# / 0F等</td>
-</tr>
-<tr>
-<td>\B</td>
-<td>匹配非单词边界</td>
-<td>\Bio\B</td>
-<td></td>
-</tr>
-<tr>
-<td>[]</td>
-<td>匹配来自字符集的任意单一字符</td>
-<td>[aeiou]</td>
-<td>可以匹配任一元音字母字符</td>
-</tr>
-<tr>
-<td>[^]</td>
-<td>匹配不在字符集中的任意单一字符</td>
-<td>[^aeiou]</td>
-<td>可以匹配任一非元音字母字符</td>
-</tr>
-<tr>
-<td>*</td>
-<td>匹配0次或多次</td>
-<td>\w*</td>
-<td></td>
-</tr>
-<tr>
-<td>+</td>
-<td>匹配1次或多次</td>
-<td>\w+</td>
-<td></td>
-</tr>
-<tr>
-<td>?</td>
-<td>匹配0次或1次</td>
-<td>\w?</td>
-<td></td>
-</tr>
-<tr>
-<td>{N}</td>
-<td>匹配N次</td>
-<td>\w{3}</td>
-<td></td>
-</tr>
-<tr>
-<td>{M,}</td>
-<td>匹配至少M次</td>
-<td>\w{3,}</td>
-<td></td>
-</tr>
-<tr>
-<td>{M,N}</td>
-<td>匹配至少M次至多N次</td>
-<td>\w{3,6}</td>
-<td></td>
-</tr>
-<tr>
-<td>|</td>
-<td>分支</td>
-<td>foo|bar</td>
-<td>可以匹配foo或者bar</td>
-</tr>
-<tr>
-<td>(?#)</td>
-<td>注释</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>(exp)</td>
-<td>匹配exp并捕获到自动命名的组中</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>(?&lt;name&gt;exp)</td>
-<td>匹配exp并捕获到名为name的组中</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>(?:exp)</td>
-<td>匹配exp但是不捕获匹配的文本</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>(?=exp)</td>
-<td>匹配exp前面的位置</td>
-<td>\b\w+(?=ing)</td>
-<td>可以匹配I’m dancing中的danc</td>
-</tr>
-<tr>
-<td>(?&lt;=exp)</td>
-<td>匹配exp后面的位置</td>
-<td>(?&lt;=\bdanc)\w+\b</td>
-<td>可以匹配I love dancing and reading中的第一个ing</td>
-</tr>
-<tr>
-<td>(?!exp)</td>
-<td>匹配后面不是exp的位置</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>(?&lt;!exp)</td>
-<td>匹配前面不是exp的位置</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>*?</td>
-<td>重复任意次，但尽可能少重复</td>
-<td>a.*b<br>a.*?b</td>
-<td>将正则表达式应用于aabab，前者会匹配整个字符串aabab，后者会匹配aab和ab两个字符串</td>
-</tr>
-<tr>
-<td>+?</td>
-<td>重复1次或多次，但尽可能少重复</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>??</td>
-<td>重复0次或1次，但尽可能少重复</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>{M,N}?</td>
-<td>重复M到N次，但尽可能少重复</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>{M,}?</td>
-<td>重复M次以上，但尽可能少重复</td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<blockquote>
-<p><strong>说明：</strong> 如果需要匹配的字符是正则表达式中的特殊字符，那么可以使用\进行转义处理，例如想匹配小数点可以写成\.就可以了，因为直接写.会匹配任意字符；同理，想匹配圆括号必须写成\(和\)，否则圆括号被视为正则表达式中的分组。</p>
-</blockquote>
-<h3 id="Python对正则表达式的支持"><a href="#Python对正则表达式的支持" class="headerlink" title="Python对正则表达式的支持"></a>Python对正则表达式的支持</h3><p>Python提供了re模块来支持正则表达式相关操作，下面是re模块中的核心函数。</p>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>compile(pattern, flags=0)</td>
-<td>编译正则表达式返回正则表达式对象</td>
-</tr>
-<tr>
-<td>match(pattern, string, flags=0)</td>
-<td>用正则表达式匹配字符串 成功返回匹配对象 否则返回None</td>
-</tr>
-<tr>
-<td>search(pattern, string, flags=0)</td>
-<td>搜索字符串中第一次出现正则表达式的模式 成功返回匹配对象 否则返回None</td>
-</tr>
-<tr>
-<td>split(pattern, string, maxsplit=0, flags=0)</td>
-<td>用正则表达式指定的模式分隔符拆分字符串 返回列表</td>
-</tr>
-<tr>
-<td>sub(pattern, repl, string, count=0, flags=0)</td>
-<td>用指定的字符串替换原字符串中与正则表达式匹配的模式 可以用count指定替换的次数</td>
-</tr>
-<tr>
-<td>fullmatch(pattern, string, flags=0)</td>
-<td>match函数的完全匹配（从字符串开头到结尾）版本</td>
-</tr>
-<tr>
-<td>findall(pattern, string, flags=0)</td>
-<td>查找字符串所有与正则表达式匹配的模式 返回字符串的列表</td>
-</tr>
-<tr>
-<td>finditer(pattern, string, flags=0)</td>
-<td>查找字符串所有与正则表达式匹配的模式 返回一个迭代器</td>
-</tr>
-<tr>
-<td>purge()</td>
-<td>清除隐式编译的正则表达式的缓存</td>
-</tr>
-<tr>
-<td>re.I / re.IGNORECASE</td>
-<td>忽略大小写匹配标记</td>
-</tr>
-<tr>
-<td>re.M / re.MULTILINE</td>
-<td>多行匹配标记</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p><strong>说明：</strong> 上面提到的re模块中的这些函数，实际开发中也可以用正则表达式对象的方法替代对这些函数的使用，如果一个正则表达式需要重复的使用，那么先通过compile函数编译正则表达式并创建出正则表达式对象无疑是更为明智的选择。</p>
-</blockquote>
-<p>下面我们通过一系列的例子来告诉大家在Python中如何使用正则表达式。</p>
-<h4 id="例子1：验证输入用户名和QQ号是否有效并给出对应的提示信息。"><a href="#例子1：验证输入用户名和QQ号是否有效并给出对应的提示信息。" class="headerlink" title="例子1：验证输入用户名和QQ号是否有效并给出对应的提示信息。"></a>例子1：验证输入用户名和QQ号是否有效并给出对应的提示信息。</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">验证输入用户名和QQ号是否有效并给出对应的提示信息</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">要求：用户名必须由字母、数字或下划线构成且长度在6~20个字符之间，QQ号是5~12的数字且首位不能为0</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    username = <span class="built_in">input</span>(<span class="string">&#x27;请输入用户名: &#x27;</span>)</span><br><span class="line">    qq = <span class="built_in">input</span>(<span class="string">&#x27;请输入QQ号: &#x27;</span>)</span><br><span class="line">    <span class="comment"># match函数的第一个参数是正则表达式字符串或正则表达式对象</span></span><br><span class="line">    <span class="comment"># 第二个参数是要跟正则表达式做匹配的字符串对象</span></span><br><span class="line">    m1 = re.match(<span class="string">r&#x27;^[0-9a-zA-Z_]&#123;6,20&#125;$&#x27;</span>, username)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> m1:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;请输入有效的用户名.&#x27;</span>)</span><br><span class="line">    m2 = re.match(<span class="string">r&#x27;^[1-9]\d&#123;4,11&#125;$&#x27;</span>, qq)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> m2:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;请输入有效的QQ号.&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> m1 <span class="keyword">and</span> m2:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;你输入的信息是有效的!&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>提示：</strong> 上面在书写正则表达式时使用了“原始字符串”的写法（在字符串前面加上了r），所谓“原始字符串”就是字符串中的每个字符都是它原始的意义，说得更直接一点就是字符串中没有所谓的转义字符啦。因为正则表达式中有很多元字符和需要进行转义的地方，如果不使用原始字符串就需要将反斜杠写作\\，例如表示数字的\d得书写成\\d，这样不仅写起来不方便，阅读的时候也会很吃力。</p>
-</blockquote>
-<h4 id="例子2：从一段文字中提取出国内手机号码。"><a href="#例子2：从一段文字中提取出国内手机号码。" class="headerlink" title="例子2：从一段文字中提取出国内手机号码。"></a>例子2：从一段文字中提取出国内手机号码。</h4><p>下面这张图是截止到2017年底，国内三家运营商推出的手机号段。</p>
-<p><img src="./res/tel-start-number.png"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    <span class="comment"># 创建正则表达式对象 使用了前瞻和回顾来保证手机号前后不应该出现数字</span></span><br><span class="line">    pattern = re.<span class="built_in">compile</span>(<span class="string">r&#x27;(?&lt;=\D)1[34578]\d&#123;9&#125;(?=\D)&#x27;</span>)</span><br><span class="line">    sentence = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    重要的事情说8130123456789遍，我的手机号是13512346789这个靓号，</span></span><br><span class="line"><span class="string">    不是15600998765，也是110或119，王大锤的手机号才是15600998765。</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="comment"># 查找所有匹配并保存到一个列表中</span></span><br><span class="line">    mylist = re.findall(pattern, sentence)</span><br><span class="line">    <span class="built_in">print</span>(mylist)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;--------华丽的分隔线--------&#x27;</span>)</span><br><span class="line">    <span class="comment"># 通过迭代器取出匹配对象并获得匹配的内容</span></span><br><span class="line">    <span class="keyword">for</span> temp <span class="keyword">in</span> pattern.finditer(sentence):</span><br><span class="line">        <span class="built_in">print</span>(temp.group())</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;--------华丽的分隔线--------&#x27;</span>)</span><br><span class="line">    <span class="comment"># 通过search函数指定搜索位置找出所有匹配</span></span><br><span class="line">    m = pattern.search(sentence)</span><br><span class="line">    <span class="keyword">while</span> m:</span><br><span class="line">        <span class="built_in">print</span>(m.group())</span><br><span class="line">        m = pattern.search(sentence, m.end())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>说明：</strong> 上面匹配国内手机号的正则表达式并不够好，因为像14开头的号码只有145或147，而上面的正则表达式并没有考虑这种情况，要匹配国内手机号，更好的正则表达式的写法是：<code>(?&lt;=\D)(1[38]\d&#123;9&#125;|14[57]\d&#123;8&#125;|15[0-35-9]\d&#123;8&#125;|17[678]\d&#123;8&#125;)(?=\D)</code>，国内最近好像有19和16开头的手机号了，但是这个暂时不在我们考虑之列。</p>
-</blockquote>
-<h4 id="例子3：替换字符串中的不良内容"><a href="#例子3：替换字符串中的不良内容" class="headerlink" title="例子3：替换字符串中的不良内容"></a>例子3：替换字符串中的不良内容</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    sentence = <span class="string">&#x27;你丫是傻叉吗? 我操你大爷的. Fuck you.&#x27;</span></span><br><span class="line">    purified = re.sub(<span class="string">&#x27;[操肏艹]|fuck|shit|傻[比屄逼叉缺吊屌]|煞笔&#x27;</span>,</span><br><span class="line">                      <span class="string">&#x27;*&#x27;</span>, sentence, flags=re.IGNORECASE)</span><br><span class="line">    <span class="built_in">print</span>(purified)  <span class="comment"># 你丫是*吗? 我*你大爷的. * you.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>说明：</strong> re模块的正则表达式相关函数中都有一个flags参数，它代表了正则表达式的匹配标记，可以通过该标记来指定匹配时是否忽略大小写、是否进行多行匹配、是否显示调试信息等。如果需要为flags参数指定多个值，可以使用<a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-operators.html#ysf5">按位或运算符</a>进行叠加，如<code>flags=re.I | re.M</code>。</p>
-</blockquote>
-<h4 id="例子4：拆分长字符串"><a href="#例子4：拆分长字符串" class="headerlink" title="例子4：拆分长字符串"></a>例子4：拆分长字符串</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    poem = <span class="string">&#x27;窗前明月光，疑是地上霜。举头望明月，低头思故乡。&#x27;</span></span><br><span class="line">    sentence_list = re.split(<span class="string">r&#x27;[，。, .]&#x27;</span>, poem)</span><br><span class="line">    <span class="keyword">while</span> <span class="string">&#x27;&#x27;</span> <span class="keyword">in</span> sentence_list:</span><br><span class="line">        sentence_list.remove(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(sentence_list)  <span class="comment"># [&#x27;窗前明月光&#x27;, &#x27;疑是地上霜&#x27;, &#x27;举头望明月&#x27;, &#x27;低头思故乡&#x27;]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<h3 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h3><p>如果要从事爬虫类应用的开发，那么正则表达式一定是一个非常好的助手，因为它可以帮助我们迅速的从网页代码中发现某种我们指定的模式并提取出我们需要的信息，当然对于初学者来收，要编写一个正确的适当的正则表达式可能并不是一件容易的事情（当然有些常用的正则表达式可以直接在网上找找），所以实际开发爬虫应用的时候，有很多人会选择<a target="_blank" rel="noopener" href="https://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a>或<a target="_blank" rel="noopener" href="http://lxml.de/">Lxml</a>来进行匹配和信息的提取，前者简单方便但是性能较差，后者既好用性能也好，但是安装稍嫌麻烦，这些内容我们会在后期的爬虫专题中为大家介绍。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A302.%E8%AF%AD%E8%A8%80%E5%85%83%E7%B4%A0/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -733,7 +315,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A315.%E5%9B%BE%E5%83%8F%E5%92%8C%E5%8A%9E%E5%85%AC%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A301.%E5%88%9D%E8%AF%86Python/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/TOUXIANG.jpg">
@@ -747,7 +329,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A315.%E5%9B%BE%E5%83%8F%E5%92%8C%E5%8A%9E%E5%85%AC%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">这是一个测试文档15</a>
+            <a href="/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A301.%E5%88%9D%E8%AF%86Python/" class="post-title-link" itemprop="url">这是一个测试文档01</a>
         </h2>
 
         <div class="post-meta">
@@ -758,7 +340,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-04-08 17:13:38 / Modified: 17:19:35" itemprop="dateCreated datePublished" datetime="2021-04-08T17:13:38+08:00">2021-04-08</time>
+              <time title="Created: 2021-04-08 17:27:43 / Modified: 17:27:59" itemprop="dateCreated datePublished" datetime="2021-04-08T17:27:43+08:00">2021-04-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -782,93 +364,14 @@
 
       
           <p>&lt;该文档建立于2021年4月8日，用于对zcc—blog网站的初步调试做测试。下面是一些基本调试文档（来源于：**作者**：骆昊）&gt;</p>
-<h2 id="图像和办公文档处理"><a href="#图像和办公文档处理" class="headerlink" title="图像和办公文档处理"></a>图像和办公文档处理</h2><p>用程序来处理图像和办公文档经常出现在实际开发中，Python的标准库中虽然没有直接支持这些操作的模块，但我们可以通过Python生态圈中的第三方模块来完成这些操作。</p>
-<h3 id="操作图像"><a href="#操作图像" class="headerlink" title="操作图像"></a>操作图像</h3><h4 id="计算机图像相关知识"><a href="#计算机图像相关知识" class="headerlink" title="计算机图像相关知识"></a>计算机图像相关知识</h4><ol>
-<li><p>颜色。如果你有使用颜料画画的经历，那么一定知道混合红、黄、蓝三种颜料可以得到其他的颜色，事实上这三种颜色就是被我们称为美术三原色的东西，它们是不能再分解的基本颜色。在计算机中，我们可以将红、绿、蓝三种色光以不同的比例叠加来组合成其他的颜色，因此这三种颜色就是色光三原色，所以我们通常会将一个颜色表示为一个RGB值或RGBA值（其中的A表示Alpha通道，它决定了透过这个图像的像素，也就是透明度）。</p>
-<table>
-<thead>
-<tr>
-<th align="center">名称</th>
-<th align="center">RGBA值</th>
-<th align="center">名称</th>
-<th align="center">RGBA值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">White</td>
-<td align="center">(255, 255, 255, 255)</td>
-<td align="center">Red</td>
-<td align="center">(255, 0, 0, 255)</td>
-</tr>
-<tr>
-<td align="center">Green</td>
-<td align="center">(0, 255, 0, 255)</td>
-<td align="center">Blue</td>
-<td align="center">(0, 0, 255, 255)</td>
-</tr>
-<tr>
-<td align="center">Gray</td>
-<td align="center">(128, 128, 128, 255)</td>
-<td align="center">Yellow</td>
-<td align="center">(255, 255, 0, 255)</td>
-</tr>
-<tr>
-<td align="center">Black</td>
-<td align="center">(0, 0, 0, 255)</td>
-<td align="center">Purple</td>
-<td align="center">(128, 0, 128, 255)</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>像素。对于一个由数字序列表示的图像来说，最小的单位就是图像上单一颜色的小方格，这些小方块都有一个明确的位置和被分配的色彩数值，而这些一小方格的颜色和位置决定了该图像最终呈现出来的样子，它们是不可分割的单位，我们通常称之为像素（pixel）。每一个图像都包含了一定量的像素，这些像素决定图像在屏幕上所呈现的大小。</p>
-</li>
-</ol>
-<h4 id="用Pillow操作图像"><a href="#用Pillow操作图像" class="headerlink" title="用Pillow操作图像"></a>用Pillow操作图像</h4><p>Pillow是由从著名的Python图像处理库PIL发展出来的一个分支，通过Pillow可以实现图像压缩和图像处理等各种操作。可以使用下面的命令来安装Pillow。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pillow</span><br></pre></td></tr></table></figure>
-
-<p>Pillow中最为重要的是Image类，读取和处理图像都要通过这个类来完成。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>image = Image.<span class="built_in">open</span>(<span class="string">&#x27;./res/guido.jpg&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>image.<span class="built_in">format</span>, image.size, image.mode</span><br><span class="line">(<span class="string">&#x27;JPEG&#x27;</span>, (<span class="number">500</span>, <span class="number">750</span>), <span class="string">&#x27;RGB&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>image.show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="./res/image-show.png"></p>
-<ol>
-<li><p>剪裁图像</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>image = Image.<span class="built_in">open</span>(<span class="string">&#x27;./res/guido.jpg&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>rect = <span class="number">80</span>, <span class="number">20</span>, <span class="number">310</span>, <span class="number">360</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>image.crop(rect).show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="./res/image-crop.png"></p>
-</li>
-<li><p>生成缩略图</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>image = Image.<span class="built_in">open</span>(<span class="string">&#x27;./res/guido.jpg&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>size = <span class="number">128</span>, <span class="number">128</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>image.thumbnail(size)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>image.show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="./res/image-thumbnail.png"></p>
-</li>
-<li><p>缩放和黏贴图像</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>image1 = Image.<span class="built_in">open</span>(<span class="string">&#x27;./res/luohao.png&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>image2 = Image.<span class="built_in">open</span>(<span class="string">&#x27;./res/guido.jpg&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>rect = <span class="number">80</span>, <span class="number">20</span>, <span class="number">310</span>, <span class="number">360</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>guido_head = image2.crop(rect)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>width, height = guido_head.size</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>image1.paste(guido_head.resize((<span class="built_in">int</span>(width / <span class="number">1.5</span>), <span class="built_in">int</span>(height / <span class="number">1.5</span>))), (<span class="number">172</span>, <span class="number">40</span>))</span><br></pre></td></tr></table></figure>
-
-<p><img src="./res/image-paste.png"></p>
-</li>
-<li><p>旋转和翻转</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>image = Image.<span class="built_in">open</span>(<span class="string">&#x27;./res/guido.png&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>image.rotate(<span class="number">180</span>).show()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>image.transpose(Image.FLIP_LEFT_RIGHT).show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="./res/image-rotate.png"></p>
-<p><img src="./res/image-transpose.png"></p>
-</li>
-<li><p>操作像素</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>image = Image.<span class="built_in">open</span>(<span class="string">&#x27;./res/guido.jpg&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">80</span>, <span class="number">310</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>, <span class="number">360</span>):</span><br><span class="line"><span class="meta">... </span>        image.putpixel((x, y), (<span class="number">128</span>, <span class="number">128</span>, <span class="number">128</span>))</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>image.show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="./res/image-putpixel.png"></p>
-</li>
-<li><p>滤镜效果</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageFilter</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>image = Image.<span class="built_in">open</span>(<span class="string">&#x27;./res/guido.jpg&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>image.<span class="built_in">filter</span>(ImageFilter.CONTOUR).show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="./res/image-filter.png"></p>
-</li>
-</ol>
-<h3 id="处理Excel电子表格"><a href="#处理Excel电子表格" class="headerlink" title="处理Excel电子表格"></a>处理Excel电子表格</h3><p>Python的openpyxl模块让我们可以在Python程序中读取和修改Excel电子表格，由于微软从Office 2007开始使用了新的文件格式，这使得Office Excel和LibreOffice Calc、OpenOffice Calc是完全兼容的，这就意味着openpyxl模块也能处理来自这些软件生成的电子表格。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> Workbook</span><br><span class="line"></span><br><span class="line">wb = Workbook()</span><br><span class="line">ws = wb.active</span><br><span class="line"></span><br><span class="line">ws[<span class="string">&#x27;A1&#x27;</span>] = <span class="number">42</span></span><br><span class="line">ws.append([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">ws[<span class="string">&#x27;A2&#x27;</span>] = datetime.datetime.now()</span><br><span class="line"></span><br><span class="line">wb.save(<span class="string">&quot;sample.xlsx&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="处理Word文档"><a href="#处理Word文档" class="headerlink" title="处理Word文档"></a>处理Word文档</h3><p>利用python-docx模块，Python可以创建和修改Word文档，当然这里的Word文档不仅仅是指通过微软的Office软件创建的扩展名为docx的文档，LibreOffice Writer和OpenOffice Writer都是免费的字处理软件。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> docx <span class="keyword">import</span> Document</span><br><span class="line"><span class="keyword">from</span> docx.shared <span class="keyword">import</span> Inches</span><br><span class="line"></span><br><span class="line">document = Document()</span><br><span class="line"></span><br><span class="line">document.add_heading(<span class="string">&#x27;Document Title&#x27;</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">p = document.add_paragraph(<span class="string">&#x27;A plain paragraph having some &#x27;</span>)</span><br><span class="line">p.add_run(<span class="string">&#x27;bold&#x27;</span>).bold = <span class="literal">True</span></span><br><span class="line">p.add_run(<span class="string">&#x27; and some &#x27;</span>)</span><br><span class="line">p.add_run(<span class="string">&#x27;italic.&#x27;</span>).italic = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">document.add_heading(<span class="string">&#x27;Heading, level 1&#x27;</span>, level=<span class="number">1</span>)</span><br><span class="line">document.add_paragraph(<span class="string">&#x27;Intense quote&#x27;</span>, style=<span class="string">&#x27;Intense Quote&#x27;</span>)</span><br><span class="line"></span><br><span class="line">document.add_paragraph(</span><br><span class="line">    <span class="string">&#x27;first item in unordered list&#x27;</span>, style=<span class="string">&#x27;List Bullet&#x27;</span></span><br><span class="line">)</span><br><span class="line">document.add_paragraph(</span><br><span class="line">    <span class="string">&#x27;first item in ordered list&#x27;</span>, style=<span class="string">&#x27;List Number&#x27;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">document.add_picture(<span class="string">&#x27;monty-truth.png&#x27;</span>, width=Inches(<span class="number">1.25</span>))</span><br><span class="line"></span><br><span class="line">records = (</span><br><span class="line">    (<span class="number">3</span>, <span class="string">&#x27;101&#x27;</span>, <span class="string">&#x27;Spam&#x27;</span>),</span><br><span class="line">    (<span class="number">7</span>, <span class="string">&#x27;422&#x27;</span>, <span class="string">&#x27;Eggs&#x27;</span>),</span><br><span class="line">    (<span class="number">4</span>, <span class="string">&#x27;631&#x27;</span>, <span class="string">&#x27;Spam, spam, eggs, and spam&#x27;</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">table = document.add_table(rows=<span class="number">1</span>, cols=<span class="number">3</span>)</span><br><span class="line">hdr_cells = table.rows[<span class="number">0</span>].cells</span><br><span class="line">hdr_cells[<span class="number">0</span>].text = <span class="string">&#x27;Qty&#x27;</span></span><br><span class="line">hdr_cells[<span class="number">1</span>].text = <span class="string">&#x27;Id&#x27;</span></span><br><span class="line">hdr_cells[<span class="number">2</span>].text = <span class="string">&#x27;Desc&#x27;</span></span><br><span class="line"><span class="keyword">for</span> qty, <span class="built_in">id</span>, desc <span class="keyword">in</span> records:</span><br><span class="line">    row_cells = table.add_row().cells</span><br><span class="line">    row_cells[<span class="number">0</span>].text = <span class="built_in">str</span>(qty)</span><br><span class="line">    row_cells[<span class="number">1</span>].text = <span class="built_in">id</span></span><br><span class="line">    row_cells[<span class="number">2</span>].text = desc</span><br><span class="line"></span><br><span class="line">document.add_page_break()</span><br><span class="line"></span><br><span class="line">document.save(<span class="string">&#x27;demo.docx&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A301.%E5%88%9D%E8%AF%86Python/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -886,7 +389,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
   </nav>
 
 
@@ -954,7 +457,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

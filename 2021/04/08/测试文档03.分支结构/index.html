@@ -22,16 +22,16 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="&lt;该文档建立于2021年4月8日，用于对zcc—blog网站的初步调试做测试。下面是一些基本调试文档（来源于：**作者**：骆昊）&gt; 分支结构应用场景迄今为止，我们写的Python代码都是一条一条语句顺序执行，这种代码结构通常称之为顺序结构。然而仅有顺序结构并不能解决所有的问题，比如我们设计一个游戏，游戏第一关的通关条件是玩家获得1000分，那么在完成本局游戏后，我们要根据玩家得到分数">
+  <meta name="description" content="&lt;该文档建立于2021年4月8日，用于对zcc—blog网站的初步调试做测试。下面是一些基本调试文档（来源于：**作者**：骆昊）&gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="这是一个测试文档03">
 <meta property="og:url" content="http://example.com/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A303.%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84/index.html">
 <meta property="og:site_name" content="ZouCC-Blog">
-<meta property="og:description" content="&lt;该文档建立于2021年4月8日，用于对zcc—blog网站的初步调试做测试。下面是一些基本调试文档（来源于：**作者**：骆昊）&gt; 分支结构应用场景迄今为止，我们写的Python代码都是一条一条语句顺序执行，这种代码结构通常称之为顺序结构。然而仅有顺序结构并不能解决所有的问题，比如我们设计一个游戏，游戏第一关的通关条件是玩家获得1000分，那么在完成本局游戏后，我们要根据玩家得到分数">
+<meta property="og:description" content="&lt;该文档建立于2021年4月8日，用于对zcc—blog网站的初步调试做测试。下面是一些基本调试文档（来源于：**作者**：骆昊）&gt;">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A303.%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84/res/formula_1.png">
-<meta property="article:published_time" content="2021-04-08T09:13:38.807Z">
-<meta property="article:modified_time" content="2021-04-08T09:17:36.984Z">
+<meta property="article:published_time" content="2021-04-08T09:28:15.627Z">
+<meta property="article:modified_time" content="2021-04-08T09:28:21.223Z">
 <meta property="article:author" content="ZouCC">
 <meta property="article:tag" content="Testing">
 <meta name="twitter:card" content="summary">
@@ -195,7 +195,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-04-08 17:13:38 / Modified: 17:17:36" itemprop="dateCreated datePublished" datetime="2021-04-08T17:13:38+08:00">2021-04-08</time>
+              <time title="Created: 2021-04-08 17:28:15 / Modified: 17:28:21" itemprop="dateCreated datePublished" datetime="2021-04-08T17:28:15+08:00">2021-04-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -219,6 +219,7 @@
 
       
         <p>&lt;该文档建立于2021年4月8日，用于对zcc—blog网站的初步调试做测试。下面是一些基本调试文档（来源于：**作者**：骆昊）&gt;</p>
+<span id="more"></span>
 <h2 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h2><h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>迄今为止，我们写的Python代码都是一条一条语句顺序执行，这种代码结构通常称之为顺序结构。然而仅有顺序结构并不能解决所有的问题，比如我们设计一个游戏，游戏第一关的通关条件是玩家获得1000分，那么在完成本局游戏后，我们要根据玩家得到分数来决定究竟是进入第二关，还是告诉玩家“Game Over”，这里就会产生两个分支，而且这两个分支只有一个会被执行。类似的场景还有很多，我们将这种结构称之为“分支结构”或“选择结构”。给大家一分钟的时间，你应该可以想到至少5个以上这样的例子，赶紧试一试。</p>
 <h3 id="if语句的使用"><a href="#if语句的使用" class="headerlink" title="if语句的使用"></a>if语句的使用</h3><p>在Python中，要构造分支结构可以使用<code>if</code>、<code>elif</code>和<code>else</code>关键字。所谓<strong>关键字</strong>就是有特殊含义的单词，像<code>if</code>和<code>else</code>就是专门用于构造分支结构的关键字，很显然你不能够使用它作为变量名（事实上，用作其他的标识符也是不可以）。下面的例子中演示了如何构造一个分支结构。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">用户身份验证</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Version: 0.1</span></span><br><span class="line"><span class="string">Author: 骆昊</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">username = <span class="built_in">input</span>(<span class="string">&#x27;请输入用户名: &#x27;</span>)</span><br><span class="line">password = <span class="built_in">input</span>(<span class="string">&#x27;请输入口令: &#x27;</span>)</span><br><span class="line"><span class="comment"># 用户名是admin且密码是123456则身份验证成功否则身份验证失败</span></span><br><span class="line"><span class="keyword">if</span> username == <span class="string">&#x27;admin&#x27;</span> <span class="keyword">and</span> password == <span class="string">&#x27;123456&#x27;</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;身份验证成功!&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;身份验证失败!&#x27;</span>)</span><br></pre></td></tr></table></figure>
@@ -279,7 +280,10 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A302.%E8%AF%AD%E8%A8%80%E5%85%83%E7%B4%A0/" rel="prev" title="这是一个测试文档02">
+      <i class="fa fa-chevron-left"></i> 这是一个测试文档02
+    </a></div>
       <div class="post-nav-item">
     <a href="/2021/04/08/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A304.%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/" rel="next" title="这是一个测试文档04">
       这是一个测试文档04 <i class="fa fa-chevron-right"></i>
@@ -358,7 +362,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
